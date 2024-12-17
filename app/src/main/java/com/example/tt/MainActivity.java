@@ -24,9 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
         koreanTextView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // 한국어 선택 시 실행될 코드
-                Intent intent = new Intent(MainActivity.this, com.google.androidgamesdk.GameActivity.class);
+            public void onClick(View v) {// 한국어 선택 시 실행
+                Intent intent = new Intent(getApplicationContext(), Game.class);
                 intent.putExtra("language", "korean");
                 startActivity(intent);
             }
@@ -34,9 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         englishTextView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // 영어 선택 시 실행될 코드
-                Intent intent = new Intent(MainActivity.this, com.google.androidgamesdk.GameActivity.class);
+            public void onClick(View v) {// 영어 선택 시 실행
+                Intent intent = new Intent(getApplicationContext(), Game.class);
                 intent.putExtra("language", "english");
                 startActivity(intent);
             }
