@@ -1,7 +1,5 @@
 package com.example.tt;
 
-import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,8 +17,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.gson.Gson;
-
-import com.android.volley.RequestQueue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,7 +39,6 @@ import java.util.UUID;
 public class Game extends AppCompatActivity {
 
     private SQLiteDatabase db;
-    static RequestQueue requestQueue;
 
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private String audioFilePath;
@@ -50,7 +46,10 @@ public class Game extends AppCompatActivity {
     private boolean isRecording = false;
 
     private String language;
+    private TextView targetTextView;
+    private TextView resultTextView;
     private Button voiceButton;
+    private Button nextButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,10 +71,26 @@ public class Game extends AppCompatActivity {
             }
         });
 
+        targetTextView = findViewById(R.id.target_text_view);
+        resultTextView = findViewById(R.id.result_text_view);
+        nextButton = findViewById(R.id.next_button);
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resultTextView.setText("Record를 누르고 말해주세요"); // Clear result_text_view
+                displayRandomPhrase(); // Display new random phrase
+            }
+        });
+
         // Intent에서 언어 정보 가져오기
         Intent intent = getIntent();
         language = intent.getStringExtra("language");
 
+        displayRandomPhrase();
+    }
+
+    private void displayRandomPhrase() {
         // 언어에 따라 SQL 쿼리 생성
         String query = "SELECT phrase FROM tongue_twisters WHERE language = ?";
         String[] selectionArgs = {language};
@@ -98,11 +113,7 @@ public class Game extends AppCompatActivity {
         }
 
         cursor.close();
-
-
     }
-
-
 
 
 
@@ -135,7 +146,7 @@ public class Game extends AppCompatActivity {
             mediaRecorder.prepare();
             mediaRecorder.start();
             isRecording = true;
-            voiceButton.setText("Stop Recording");
+            voiceButton.setText("Stop");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -147,7 +158,7 @@ public class Game extends AppCompatActivity {
         mediaRecorder.release();
         mediaRecorder = null;
         isRecording = false;
-        voiceButton.setText("Start Recording");
+        voiceButton.setText("Record");
     }
 
     // 오디오 파일 전송
@@ -157,7 +168,7 @@ public class Game extends AppCompatActivity {
             public void run() {
                 try {
                     String openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition";
-                    String accessKey = "APIKey"; // 발급받은 API Key, github에 연동 X
+                    String accessKey = "API KEY"; // 발급받은 API Key, github에 연동 X
                     String languageCode = language; // 언어 코드 (필요에 따라 변경)
 
                     Gson gson = new Gson();
@@ -212,13 +223,20 @@ public class Game extends AppCompatActivity {
                             }
                         });
                     } else {
-                        // 오류 처리
+                        Log.e("Game.java", "responBody"+responBody);
                     }
 
-                } catch (MalformedURLException | FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
+                } catch (MalformedURLException e) {
+                    Log.e("Game.java", "MalformedURLException");
+                    //e.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    Log.e("Game.java", "FileNotFoundException");
+                } catch (JSONException e) {
+                    Log.e("Game.java", "JSONException");
+                    //e.printStackTrace();
+                } catch (IOException e) {
+                    Log.e("Game.java", "IOException");
+                    //e.printStackTrace();
                 }
             }
         }).start();
