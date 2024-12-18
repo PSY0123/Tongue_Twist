@@ -19,7 +19,7 @@ MainActivity 실행 시 TongueTwisterDB 파일을 자동으로 생성한다.
 
 그리고 game.java 액티비티를 실행한다.
 
-<right><img src="https://github.com/user-attachments/assets/653db81c-3fd2-4b72-8852-36cca23a2ccc" width="25%" height="25%"/></right>
+<img src="https://github.com/user-attachments/assets/653db81c-3fd2-4b72-8852-36cca23a2ccc" width="25%" height="25%"/>
 
 # Game.java
 game.java 실행 시 화면 기본 구성을 설정하고 기본 버튼을 이어준다.
@@ -28,8 +28,8 @@ api 문서 페이지에 나온 코드를 참조하여 음성 녹음과 저장, �
 돌아온 결과 응답 메시지에서 음성 인식 결과 json로 받아 출력한다.
 
 # 한국어 선택 결과 & 영어 선택 결과
-![Korean](https://github.com/user-attachments/assets/42208006-b217-4c25-a2a6-4345bc4e38fb){: width="50%" height="50%"}
-![English](https://github.com/user-attachments/assets/5a4315a3-a0c1-4e73-bb8e-73afc8236064){: width="50%" height="50%"}
+<img src="https://github.com/user-attachments/assets/42208006-b217-4c25-a2a6-4345bc4e38fb"  width="25%" height="25%"/>
+<img src="https://github.com/user-attachments/assets/5a4315a3-a0c1-4e73-bb8e-73afc8236064"  width="25%" height="25%"/>
 
 # 결과
 api 호출을 제외한 부분에서 정상 작동하나, 제일 중요한 기능에서 알 수 없는 이유로 작동하지 않아 개선이 필요하다.
