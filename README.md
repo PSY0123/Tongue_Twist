@@ -7,11 +7,14 @@ Android Studio
 
 # 구성
 MainActivity.java + activity_main.xml
+
 Game.java + game.xml
+
 TongueTwisterDB.java
 
 # MainActivity
 MainActivity 실행 시 TongueTwisterDB 파일을 자동으로 생성한다.
+
 이후 화면에 한국어와 영어를 선택하는 두 TextView를 통해 intent로 넘길 language 정보를 확보했다.
 그리고 game.java 액티비티를 실행한다.
 <left><img src="https://github.com/user-attachments/assets/653db81c-3fd2-4b72-8852-36cca23a2ccc" width="25%" height="25%"/></left>
