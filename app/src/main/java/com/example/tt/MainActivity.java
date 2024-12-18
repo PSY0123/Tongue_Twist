@@ -1,6 +1,7 @@
 package com.example.tt;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +19,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        TongueTwisterDB dbHelper = new TongueTwisterDB(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.close();
 
         TextView koreanTextView = findViewById(R.id.korean_text_view);
         TextView englishTextView = findViewById(R.id.english_text_view);
